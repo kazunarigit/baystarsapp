@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/butterinfo', 'ButterController@show');
+Route::get('/pitcherinfo', 'PitcherController@show'); # 追記
+    
+
+Route::get('/', 'TopController@index');
+
