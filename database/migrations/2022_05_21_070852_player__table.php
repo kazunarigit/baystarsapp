@@ -19,7 +19,7 @@ class PlayerTable extends Migration
             $table->integer('times_at_but');  //打数
             $table->integer('hit'); // 安打
             $table->integer('hit_point');  // 打点
-            $table->float('hit_adv', 3, 2);// 打率	
+            $table->float('hit_adv', 4, 3);// 打率	
             
             $table->integer('homeruns'); // 本塁打	
             $table->integer('steals'); // 盗塁	
