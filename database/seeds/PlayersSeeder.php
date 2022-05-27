@@ -32,7 +32,7 @@ class PlayersSeeder extends Seeder
             'saves' => 1, // セーブ	
             'resp_points' => 1, // 自責点	
             'lost_points' => 1, // 失点	
-            'saved_adv' => 1, // 防御率
+            'saved_adv' => 1 // 防御率
             ]);
     }
 }
