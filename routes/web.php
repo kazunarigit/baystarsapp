@@ -18,3 +18,4 @@ Route::get('/pitcherinfo', 'PitcherController@show'); # 追記
 
 Route::get('/', 'TopController@index');
 
+Route::get('/scraping', 'ScrapingController@scraping')->name('scraping');// scraping
