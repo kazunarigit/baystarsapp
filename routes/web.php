@@ -19,3 +19,11 @@ Route::get('/pitcherinfo', 'PitcherController@show'); # 追記
 Route::get('/', 'TopController@index');
 
 Route::get('/scraping', 'ScrapingController@scraping')->name('scraping');// scraping
+
+Route::get('/', function() {
+    $crawler = Goutte::request('GET', 'https://duckduckgo.com/html/?q=Laravel');
+    $crawler->filter('.result__title .result__a')->each(function ($node) {
+      dump($node->text());
+    });
+    return view('welcome');
+});
