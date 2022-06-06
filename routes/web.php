@@ -21,9 +21,19 @@ Route::get('/', 'TopController@index');
 Route::get('/scraping', 'ScrapingController@scraping')->name('scraping');// scraping
 
 Route::get('/', function() {
-    $crawler = Goutte::request('GET', 'https://duckduckgo.com/html/?q=Laravel');
-    $crawler->filter('.result__title .result__a')->each(function ($node) {
+    $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
+    $crawler->filter('.bb-playerTable__row')->each(function ($node) {
       dump($node->text());
     });
+   // dd($crawler);
+    return view('welcome');
+});
+
+Route::get('/', function() {
+    $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
+    $crawler->filter('.bb-playerTable__row')->each(function ($node) {
+      dump($node->text());
+    });
+   // dd($crawler);
     return view('welcome');
 });
