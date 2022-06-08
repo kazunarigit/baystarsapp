@@ -22,8 +22,8 @@ Route::get('/scraping', 'ScrapingController@scraping')->name('scraping');// scra
 
 Route::get('/', function() {
     $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
-    $crawler->filter('.bb-playerTable__row')->each(function ($node) {
-      dump($node->text());
+    $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
+      dump($tr->text());
     });
    // dd($crawler);
     return view('welcome');
@@ -31,8 +31,8 @@ Route::get('/', function() {
 
 Route::get('/', function() {
     $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
-    $crawler->filter('.bb-playerTable__row')->each(function ($node) {
-      dump($node->text());
+    $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
+      dump($tr->text());
     });
    // dd($crawler);
     return view('welcome');
