@@ -13,15 +13,16 @@ class ScrapingController extends Controller
         $client = new Client();
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
         $titles = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
-           // $title = $li->filter('div.p13n-sc-truncate-desktop-type2')->text();
+            //選手のピッチャーの成績データを取り出す。→投球回、勝ち、負け
+           $title = $tr;
             return $title;
         });
         return view('scraping', compact('titles'));
         
-        $client = new Client();
+        
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
         $titles = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
-            //$title = $li->filter('div.p13n-sc-truncate-desktop-type2')->text();
+            $title = $tr->filter('.bb-playerTable__data--player')->text();
             return $title;
         });
         return view('scraping', compact('titles'));
