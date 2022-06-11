@@ -19,14 +19,14 @@ class ScrapingController extends Controller
         });
         return view('scraping', compact('titles'));
         
-        
+        /*
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
         $titles = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
             $title = $tr->filter('.bb-playerTable__data--player')->text();
             return $title;
         });
         return view('scraping', compact('titles'));
-    }
+    }*/
     
     
 }
