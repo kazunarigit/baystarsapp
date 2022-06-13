@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use app\models\Playerdata;
+use App\models\Playerdata;
 use Illuminate\Http\Request;
 
 class ButterController extends Controller
