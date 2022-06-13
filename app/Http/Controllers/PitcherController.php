@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use app\models\Playerdata;
 use Illuminate\Http\Request;
 
 class PitcherController extends Controller
