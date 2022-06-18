@@ -6,27 +6,59 @@ use Illuminate\Http\Request;
 
 use Goutte\Client;
 
+import playerdata from models
+
 class ScrapingController extends Controller
 {
-    public function scraping()
+    public function scraping(Request $request, Playerdata $playerdata, $playername)
     {
-        $client = new Client();
-        $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
-        $titles = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
-            //選手のピッチャーの成績データを取り出す。→（選手名）、投球回、勝ち、負け、セーブ、被安打、被本塁打、防御率、自責点、失点
-           $title = $tr;
-            return $title;
-        });
-        return view('scraping', compact('titles'));
+        $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
+        $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
+        $data = $tr->text();
+      
+        return $data;
+    });
+        foreach($info as $data) {
+        $playerdata = explode(" ", $data);
+        //print_r($playerdata) ;
+        dump($playerdata[4]);
         
-        /*
-        $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
-        $titles = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
-            $title = $tr->filter('.bb-playerTable__data--player')->text();
-            return $title;
-        });
-        return view('scraping', compact('titles'));
-    }*/
+        $playerdata = Playerdata::find($playername);
+        
+        $playerdata->save();
+    };
+    return view('pitcher');
+    
+    
+     
+
+        $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
+        $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
+        $data = $tr->text();
+      
+        return $data;
+    });
+        foreach($info as $data) {
+        $playerdata = explode(" ", $data);
+        //print_r($playerdata) ;
+        dump($playerdata[4]);
+        
+        $playerdata = Playerdata::find($playername);
+        
+        $playerdata->save();
+    };
+    return view('butter');
     
     
 }
+
+/*
+# ここにインポート文を書く。
+import playerdata from 
+
+# 登録するデータ（function)
+public function ()
+
+
+# データを保存する処理
+*/

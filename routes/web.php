@@ -34,6 +34,7 @@ Route::get('/', function() {
     };
     return view('welcome');
 });
+
 /*
 Route::get('/', function() {
    $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
