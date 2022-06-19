@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.layouts')
 @section('title', '投手一覧')
 
 @section('content')
