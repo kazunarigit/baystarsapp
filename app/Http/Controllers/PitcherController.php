@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class PitcherController extends Controller
 {
-    public function show(){
+    public function show(Request $request){
         return view('pitcher');
     }
 }
