@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Goutte\Client;
+use App\Models\Playerdata;
 
-include 'playerdata.php';
+include('Playerdata.php') ;
 
 class ScrapingController extends Controller
 {
