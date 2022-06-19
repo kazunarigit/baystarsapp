@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ButterController extends Controller
 {
-    public function show(){
+    public function show(Request $request){
         return view('butter');
     }
 }
