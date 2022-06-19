@@ -2,8 +2,8 @@
 
 @section('content')
     <ol class="container">
-        @foreach($titles as $title)
-            <li>{{ $title }}</li>
+        @foreach($info as $data)
+            <li>{{ $data }}</li>
         @endforeach
     </ol>
 @endsection
