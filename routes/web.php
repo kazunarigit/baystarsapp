@@ -29,19 +29,24 @@ Route::get('/', function() {
     });
     foreach($info as $data) {
         $playerdata = explode(" ", $data);
-        //print_r($playerdata) ;
-        dump($playerdata[4]);
+        // print_r($playerdata) ;
+        dump($playerdata);
     };
     return view('welcome');
 });
 
-/*
+
 Route::get('/', function() {
-   $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
-    $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
-      dump($tr->text());
-   });
-    dd($crawler);
+    $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
+    $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
+      $data = $tr->text();
+      
+      return $data;
+    });
+    foreach($info as $data) {
+        $playerdata = explode(" ", $data);
+        // print_r($playerdata) ;
+        dump($playerdata);
+    };
     return view('welcome');
 });
-*/

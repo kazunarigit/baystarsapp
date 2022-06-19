@@ -5,60 +5,55 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Goutte\Client;
+use App\Models\Playerdata;
 
-include 'playerdata.php';
+//include('Playerdata.php') ;
 
 class ScrapingController extends Controller
 {
-    public function scraping(Request $request, Playerdata $playerdata, $playername)
+    public function scraping()
     {
-        $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
+        $client = new Client();
+        $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
         $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
         $data = $tr->text();
       
         return $data;
         });
         foreach($info as $data) {
-        $playerdata = explode(" ", $data);
-        //print_r($playerdata) ;
-        dump($playerdata[4]);
-        
-        $playerdata = Playerdata::select('playername', 'ining', 'balls', 'hit_by_a_pitch', 'by_homeruns', 'wins', 'loses', 'saves', 'resp_points', 'lost_points', 'saved_adv');
-        
-        $playerdata->save();
+            
+            // $playerdata = new Playerdata;
+            // $playerdata->playername = $data[1];
+            $playerdata = explode(" ", $data);
+            // print_r($playerdata);
+            dump($playerdata[4]);
+            
+            $playerdata = Playerdata::select('playername', 'ining', 'balls', 'hit_by_a_pitch', 'by_homeruns', 'wins', 'loses', 'saves', 'resp_points', 'lost_points', 'saved_adv');
+            // dd($playerdata);
+            // $playerdata->save();
         };
-    return view('pitcher');
+        return view('pitcher');
     
     
      
-
-        $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
+        $client = new Client();
+        $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
         $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
         $data = $tr->text();
       
         return $data;
         });
         foreach($info as $data) {
-        $playerdata = explode(" ", $data);
-        //print_r($playerdata) ;
-        dump($playerdata[4]);
-        
-        $playerdata = Playerdata::select('playername', 'times_at_but', 'hit', 'hit_point', 'hit_adv');
-        
-        $playerdata->save();
+            $playerdata = explode(" ", $data);
+            //print_r($playerdata) ;
+            dump($playerdata[4]);
+            
+            $playerdata = Playerdata::select('playername', 'times_at_but', 'hit', 'hit_point', 'hit_adv');
+            
+            $playerdata->save();
         };
-    return view('butter');
+        return view('butter');
     }
     
 }
 
-/*
-# ここにインポート文を書く。
-import playerdata from 
-
-# 登録するデータ（function)
-public function ()
-
-
-# データを保存する処理
-*/
