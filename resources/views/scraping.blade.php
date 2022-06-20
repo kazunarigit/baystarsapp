@@ -1,3 +1,4 @@
+/*
 @extends('layouts.app')
 
 @section('content')
@@ -7,3 +8,4 @@
         @endforeach
     </ol>
 @endsection
+*/
