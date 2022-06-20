@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Goutte\Client;
 use App\Models\Playerdata;
 
-//include('Playerdata.php') ;
 
 class ScrapingController extends Controller
 {
@@ -28,11 +27,12 @@ class ScrapingController extends Controller
             // print_r($playerdata);
             dump($playerdata[4]);
             
-            $playerdata = Playerdata::select('playername', 'ining', 'balls', 'hit_by_a_pitch', 'by_homeruns', 'wins', 'loses', 'saves', 'resp_points', 'lost_points', 'saved_adv');
+            $playerdata = Playerdata::select('playername', 'ining', 'balls', 'hit_by_a_pitch', 'by_homeruns', 'wins', 'loses', 'saves', 'resp_points', 'lost_points', 'saved_adv')->get();
             // dd($playerdata);
             // $playerdata->save();
+            return view('pitcher');
         };
-        return view('pitcher');
+        
     
     
      
@@ -48,11 +48,12 @@ class ScrapingController extends Controller
             //print_r($playerdata) ;
             dump($playerdata[4]);
             
-            $playerdata = Playerdata::select('playername', 'times_at_but', 'hit', 'hit_point', 'hit_adv');
+            $playerdata = Playerdata::select('playername', 'times_at_but', 'hit', 'hit_point', 'hit_adv')->get();
             
-            $playerdata->save();
+            // $playerdata->save();
+            return view('butter');
         };
-        return view('butter');
+        
     }
     
 }
