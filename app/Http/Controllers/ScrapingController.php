@@ -10,7 +10,7 @@ use App\Models\Playerdata;
 
 class ScrapingController extends Controller
 {
-    public function scraping1()
+    public function pitcher()
     {
         $client = new Client();
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
@@ -35,7 +35,7 @@ class ScrapingController extends Controller
     }    
     
     
-     public function scraping2()
+     public function butter()
      {
         $client = new Client();
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
