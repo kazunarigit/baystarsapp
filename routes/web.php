@@ -20,7 +20,7 @@ Route::get('/pitcherinfo', 'PitcherController@show'); # 追記
 
 Route::get('/scraping', 'ScrapingController@scraping')->name('scraping');// scraping
 
-Route::get('/', function() {
+Route::get('/pitcherinfo', function() {
     $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
     $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
       $data = $tr->text();
@@ -32,11 +32,11 @@ Route::get('/', function() {
         // print_r($playerdata) ;
         dump($playerdata);
     };
-    return view('welcome');
+    return view('pitcher');
 });
 
 
-Route::get('/', function() {
+Route::get('/butterinfo', function() {
     $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
     $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
       $data = $tr->text();
@@ -48,5 +48,5 @@ Route::get('/', function() {
         // print_r($playerdata) ;
         dump($playerdata);
     };
-    return view('welcome');
+    return view('butter');
 });
