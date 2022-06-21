@@ -54,7 +54,7 @@ class ScrapingController extends Controller
             // $playerdata->save();
             
         };
-        return redirect('/butter',);
+        return redirect('/butter');
     }
     
 }
