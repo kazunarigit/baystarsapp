@@ -31,7 +31,7 @@ class ScrapingController extends Controller
             // dd($playerdata);
             // $playerdata->save();
         };
-        return view('pitcher');
+        return view('pitcher', 'playerdata' => $playerdata);
     }    
     
     
@@ -54,7 +54,7 @@ class ScrapingController extends Controller
             // $playerdata->save();
             
         };
-        return view('butter');
+        return view('butter', 'playerdata' => $playerdata);
     }
     
 }
