@@ -25,13 +25,13 @@ class ScrapingController extends Controller
             // $playerdata->playername = $data[1];
             $playerdata = explode(" ", $data);
             // print_r($playerdata);
-            dump($playerdata[4]);
+            dump($playerdata);
             
             $playerdata = Playerdata::select('playername', 'ining', 'balls', 'hit_by_a_pitch', 'by_homeruns', 'wins', 'loses', 'saves', 'resp_points', 'lost_points', 'saved_adv')->get();
             // dd($playerdata);
             // $playerdata->save();
         };
-        return view('pitcher', 'playerdata' => $playerdata);
+        return redirect('/pitcher');
     }    
     
     
@@ -47,14 +47,14 @@ class ScrapingController extends Controller
         foreach($info as $data) {
             $playerdata = explode(" ", $data);
             //print_r($playerdata) ;
-            dump($playerdata[4]);
+            dump($playerdata);
             
             $playerdata = Playerdata::select('playername', 'times_at_but', 'hit', 'hit_point', 'hit_adv')->get();
             
             // $playerdata->save();
             
         };
-        return view('butter', 'playerdata' => $playerdata);
+        return redirect('/butter',);
     }
     
 }
