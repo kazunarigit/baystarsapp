@@ -14,7 +14,10 @@
 
 Route::get('/butterinfo', 'ButterController@show');
 Route::get('/pitcherinfo', 'PitcherController@show'); # 追記
-    
+Route::post('/butterinfo', 'ButterController@create');
+Route::post('/pitcherinfo', 'PitcherController@create');
+
+
 
 //Route::get('/', 'TopController@index');
 

@@ -10,21 +10,9 @@ class PitcherController extends Controller
     public function show(Request $request){
         return view('pitcher');
     }
-    public function datainsert(){
-        $dataname = new Dataname();
+    public function create(Request $request){
+        $playerdata = new Playerdata;
         
-        $dataname->create([
-            'playername' => '',
-            'ining' => '',
-            'balls' => 'testpassword',
-            'hit_by_a_pitch' => '',
-            'by_homeruns' => '',
-            'wins' => '',
-            'loses' => '',
-            'saves' => '',
-            'resp_points' => '',
-            'lost_points' => '',
-            'saved_adv' => ''
-        ]);
+        $playerdata->save();
     }
 }

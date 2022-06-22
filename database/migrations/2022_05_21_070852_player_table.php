@@ -13,7 +13,7 @@ class PlayerTable extends Migration
      */
     public function up()
     {
-        Schema::create('playerdata', function (Blueprint $table) {//profilesと複数形
+        Schema::create('playerdata', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('playername'); 
             $table->integer('times_at_but');  //打数
