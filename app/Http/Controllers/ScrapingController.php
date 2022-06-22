@@ -31,7 +31,7 @@ class ScrapingController extends Controller
             // dd($playerdata);
             // $playerdata->save();
         };
-        return redirect('/pitcher');
+        return redirect('/pitcherinfo');
     }    
     
     
@@ -54,7 +54,7 @@ class ScrapingController extends Controller
             // $playerdata->save();
             
         };
-        return redirect('/butter');
+        return redirect('/butterinfo');
     }
     
 }
