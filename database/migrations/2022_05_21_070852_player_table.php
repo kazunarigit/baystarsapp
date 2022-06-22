@@ -20,9 +20,9 @@ class PlayerTable extends Migration
             $table->integer('hit'); // 安打
             $table->integer('hit_point');  // 打点
             $table->float('hit_adv', 4, 3);// 打率	
-            
             $table->integer('homeruns'); // 本塁打	
-            $table->integer('steals'); // 盗塁	
+            $table->integer('steals'); // 盗塁
+            
             $table->integer('ining'); // 投球回	
             $table->integer('balls'); // 球数	
             $table->integer('hit_by_a_pitch'); // 被安打	
@@ -47,4 +47,12 @@ class PlayerTable extends Migration
     {
         Schema::dropIfExists('playerdata');
     }
+
+    protected $fillable = ['playername', 'times_at_but', 'hit', 
+        'hit_point', 'hit_adv', 'homeruns', 'steals', 'ining',
+        'balls', 'hit_by_a_pitch', 'by_homeruns', 'wins', 
+        'loses', 'saves', 'resp_points', 'lost_points', 'saved_adv'];
+    
 }
+
+    
