@@ -23,27 +23,23 @@ class ScrapingController extends Controller
             
             // データを分割
             $data = explode(" ", $info[$i]);
-            // $playsername = $data[1].$data[2];
-            // print_r($playerdata);
-            // dd($playerdata);
             
-            // dd($playerdata);
             // playerdataのインスタンスを生成し、データベースのテーブルに保存
-            if($data[1] == "大和") {
-                dd($data);
-            }
+            
             $playerdata = new Playerdata();
             $playerdata->playerlastname = $data[1];
             $playerdata->playerfirstname = $data[2];
             $playerdata->times_at_but = $data[5];
             $playerdata->hit = $data[7];
             $playerdata->hit_point = $data[12];
-            $playerdata->hit_adv = $data[3];
+            $playerdata->hit_adv = (int)$data[3] / 100;
             $playerdata->homeruns = $data[10];
             $playerdata->steals = $data[19];
             $playerdata->games = $data[4];
             $playerdata->box = $data[6];
-        
+        if($data[1] == "オースティン") {
+                dd($data,$playerdata);
+            }
             
             $playerdata->save();
             
@@ -64,8 +60,7 @@ class ScrapingController extends Controller
         for($i = 1; $i < count($info); $i++) {
             // データを分割
             $data = explode(" ", $info[$i]);
-            //print_r($playerdata) ;
-            // dd($playerdata);
+            
             
             // playerdataのインスタンスを生成し、データベースのテーブルに保存
             $playerdata2 = new Playerdata2();
@@ -79,7 +74,7 @@ class ScrapingController extends Controller
             $playerdata2->saves = $data[13];
             $playerdata2->resp_points = $data[25];
             $playerdata2->lost_points = $data[24];
-            $playerdata2->saved_adv = $data[3];
+            $playerdata2->saved_adv = (int)$data[3] / 100;
             
             $playerdata2->save();
         };
