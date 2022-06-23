@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class PlayerTable extends Migration
+class Player2Table extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,11 @@ class PlayerTable extends Migration
      */
     public function up()
     {
-        Schema::create('playerdata', function (Blueprint $table) {//profilesと複数形
+        Schema::create('playerdata2', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('playername'); 
-            $table->integer('times_at_but');  //打数
-            $table->integer('hit'); // 安打
-            $table->integer('hit_point');  // 打点
-            $table->float('hit_adv', 4, 3);// 打率	
-            
-            $table->integer('homeruns'); // 本塁打	
-            $table->integer('steals'); // 盗塁	
+            $table->string('playelastrname'); // 苗字
+            $table->string('playefirstrname')->nullable()->change(); // 名前
             $table->integer('ining'); // 投球回	
-            $table->integer('balls'); // 球数	
             $table->integer('hit_by_a_pitch'); // 被安打	
             $table->integer('by_homeruns'); // 被本塁打	
             $table->integer('wins'); // 	勝ち
@@ -45,6 +38,6 @@ class PlayerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('playerdata');
+        Schema::dropIfExists('playerdata2');
     }
 }
