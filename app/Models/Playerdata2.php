@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Playerdata extends Model
 {
-    protected $table = 'playerdata1';
+    protected $table = 'playerdata2';
 }
