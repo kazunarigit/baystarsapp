@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Goutte\Client;
 use App\Models\Playerdata;
+use App\Models\Playerdata2;
 
 
 class ScrapingController extends Controller
