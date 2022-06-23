@@ -10,7 +10,7 @@ use App\Models\Playerdata;
 
 class ScrapingController extends Controller
 {
-    public function scraping()
+    public function scraping(Request $request)
     {   // ここからスクレイピングデータを持ってくる。
         $client = new Client();
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
@@ -26,9 +26,14 @@ class ScrapingController extends Controller
             // print_r($playerdata);
             dump($playerdata);
             
-            // $playerdata = Playerdata::select('playername', 'ining', 'balls', 'hit_by_a_pitch', 'by_homeruns', 'wins', 'loses', 'saves', 'resp_points', 'lost_points', 'saved_adv')->get();
             // dd($playerdata);
-            // $playerdata->save();
+            // playerdataのインスタンスを生成し、データベースのテーブルに保存
+            $playerdata = new Playerdata();
+            $playerdata = $request->all();
+            
+            $playerdata->fill($client);
+            $playerdata->save();
+            
         };
         return redirect('/pitcherinfo');
         
@@ -49,9 +54,13 @@ class ScrapingController extends Controller
             //print_r($playerdata) ;
             dump($playerdata);
             
-            // $playerdata = Playerdata::select('playername', 'times_at_but', 'hit', 'hit_point', 'hit_adv')->get();
+            // playerdataのインスタンスを生成し、データベースのテーブルに保存
+            $playerdata = new Playerdata();
+            $playerdata = $request->all();
             
-            // $playerdata->save();
+            $playerdata->fill($client);
+            $playerdata->save();
+            
             
         };
         return redirect('/butterinfo');
