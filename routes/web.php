@@ -14,14 +14,15 @@
 
 Route::get('/butterinfo', 'ButterController@show');
 Route::get('/pitcherinfo', 'PitcherController@show'); # 追記
-Route::post('/butterinfo', 'ButterController@create');
-Route::post('/pitcherinfo', 'PitcherController@create');
+// Route::post('/butterinfo', 'ButterController@create')->name('butterinfo');
+// Route::post('/pitcherinfo', 'PitcherController@create')->name('pitcherinfo');
 
 
 
 //Route::get('/', 'TopController@index');
 
 Route::get('/scraping', 'ScrapingController@scraping')->name('scraping');// scraping
+Route::get('/scraping', 'ScrapingController@create')->name('scraping');// scraping
 /*
 Route::get('/pitcherinfo', function() {
     $crawler = Goutte::request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');

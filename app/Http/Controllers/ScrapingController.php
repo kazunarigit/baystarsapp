@@ -28,11 +28,11 @@ class ScrapingController extends Controller
             
             // dd($playerdata);
             // playerdataのインスタンスを生成し、データベースのテーブルに保存
-            $playerdata = new Playerdata();
-            $playerdata = $request->all();
+            // $playerdata = new Playerdata();
+            // $playerdata = $request->all();
             
-            $playerdata->fill($client);
-            $playerdata->save();
+            // $playerdata->fill($client);
+            // $playerdata->save();
             
         };
         return redirect('/pitcherinfo');
@@ -53,18 +53,18 @@ class ScrapingController extends Controller
             $playerdata = explode(" ", $data);
             //print_r($playerdata) ;
             dump($playerdata);
-            
+        };
+        return redirect('/butterinfo');
+    }    
+    public function create(Request $request){
             // playerdataのインスタンスを生成し、データベースのテーブルに保存
             $playerdata = new Playerdata();
             $playerdata = $request->all();
             
-            $playerdata->fill($client);
+            // $playerdata->fill($client);
             $playerdata->save();
-            
-            
-        };
-        return redirect('/butterinfo');
-    }
+        }
+    
     
 }
 
