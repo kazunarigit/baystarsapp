@@ -18,13 +18,13 @@ class ScrapingController extends Controller
         $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
             $tdData = $tr->filter('.bb-playerTable__data')->each(function ($td) {
                 });
-                return $td->text();
+                return $tdData;
         });//選手データ分繰り返し
          // for($i = 1; $i < count($info); $i++)  {
             foreach($info as $data) {
                 if (empty($data)) continue;
                     $firstName = null;
-                    $lastName = null;
+                    // $lastName = null;
                  // データを分割
                  // 空白が含む場合
                     if (str_contains($data[1], ' ')) {
@@ -36,27 +36,28 @@ class ScrapingController extends Controller
                     // 含まない場合は苗字
                         $lastName = $data[1];
                     }
-            }
+            
             // playerdataのインスタンスを生成し、データベースのテーブルに保存
             
-        $playerdata = new Playerdata();
-        $playerdata->lastname = $data[1];
-        $playerdata->firstname = $data[2];
-        $playerdata->times_at_but = $data[5];
-        $playerdata->hit = $data[7];
-        $playerdata->hit_point = $data[12];
-        $playerdata->hit_adv = (int)$data[3] / 100;
-        $playerdata->homeruns = $data[10];
-        $playerdata->steals = $data[19];
-        $playerdata->games = $data[4];
-        $playerdata->box = $data[6];
-         // if($data[1] == "オースティン") {
-         //         dd($data,$playerdata);
-         //     }
+                $playerdata1 = new Playerdata();
+                $playerdata1->lastname = $lastName;
+                $playerdata1->firstname = $firstName;
+                $playerdata1->times_at_but = $data[5];
+                $playerdata1->hit = $data[7];
+                $playerdata1->hit_point = $data[12];
+                $playerdata1->hit_adv = (int)$data[3] / 100;
+                $playerdata1->homeruns = $data[10];
+                $playerdata1->steals = $data[19];
+                $playerdata1->games = $data[4];
+                $playerdata1->box = $data[6];
+                 // if($data[1] == "オースティン") {
+                 //         dd($data,$playerdata);
+                 //     }
             
-        $playerdata->save();
-    });
-    return redirect('/pitcherinfo');
+                $playerdata1->save();
+            }    
+    
+            return redirect('/pitcherinfo');
         
         //  public function butterscraping()
      // ここからスクレイピングでデータを持ってくる。
@@ -65,13 +66,13 @@ class ScrapingController extends Controller
         $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
             $tdData = $tr->filter('.bb-playerTable__data')->each(function ($td) {
                 });
-                return $td->text();
+                return $tdData();
         });//選手データ分繰り返し
         // for($i = 1; $i < count($info); $i++)  {
             foreach($info as $data) {
                 if (empty($data)) continue;
                 $firstName = null;
-                $lastName = null;
+                // $lastName = null;
                 // データを分割
                 // 空白が含む場合
                 if (str_contains($data[1], ' ')) {
@@ -84,22 +85,24 @@ class ScrapingController extends Controller
                     // 含まない場合は苗字
                     $lastName = $data[1];
                 }
-            }
-        // playerdataのインスタンスを生成し、データベースのテーブルに保存
-        $playerdata2 = new Playerdata2();
-        $playerdata2->lastname = $data[1];
-        $playerdata2->firstname = $data[2];
-        $playerdata2->ining = $data[4];
-        $playerdata2->hit_by_a_pitch = $data[16];
-        $playerdata2->by_homeruns = $data[17];
-        $playerdata2->wins = $data[9];
-        $playerdata2->loses = $data[10];
-        $playerdata2->saves = $data[13];
-        $playerdata2->resp_points = $data[25];
-        $playerdata2->lost_points = $data[24];
-        $playerdata2->saved_adv = (int)$data[3] / 100;
-        
-        $playerdata2->save();
+            
+                // playerdataのインスタンスを生成し、データベースのテーブルに保存
+                $playerdata2 = new Playerdata2();
+                $playerdata2->lastname = $lastName;
+                $playerdata2->firstname = $firstName;
+                $playerdata2->ining = $data[4];
+                $playerdata2->hit_by_a_pitch = $data[16];
+                $playerdata2->by_homeruns = $data[17];
+                $playerdata2->wins = $data[9];
+                $playerdata2->loses = $data[10];
+                $playerdata2->saves = $data[13];
+                $playerdata2->resp_points = $data[25];
+                $playerdata2->lost_points = $data[24];
+                $playerdata2->saved_adv = (int)$data[3] / 100;
+                
+                $playerdata2->save();
+            }    
+    
+            return redirect('/butterinfo');
     }
-    return redirect('/butterinfo');
 }
