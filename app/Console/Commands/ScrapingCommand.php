@@ -44,11 +44,11 @@ class ScrapingCommand extends Command
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
         $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
             $tdData = $tr->filter('.bb-playerTable__data')->each(function ($td) {
-                
+                });
                 return $td->text();
             });
             return $tdData;
-        });
+        
          //選手データ分繰り返し
          // for($i = 1; $i < count($info); $i++)  {
             foreach($info as $data) {
@@ -95,11 +95,11 @@ class ScrapingCommand extends Command
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
         $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
             $tdData = $tr->filter('.bb-playerTable__data')->each(function ($td) {
-                
+                });
                 return $td->text();
             });
             return $tdData;
-        });
+        
             //選手データ分繰り返し
          // for($i = 1; $i < count($info); $i++)  {
             foreach($info as $data) {
@@ -135,6 +135,5 @@ class ScrapingCommand extends Command
             $playerdata2->saved_adv = (int)$data[3] / 100;
             
             $playerdata2->save();
-        }
-    }    
-}
+    }
+}    
