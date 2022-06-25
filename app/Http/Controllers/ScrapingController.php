@@ -26,6 +26,7 @@ class ScrapingController extends Controller
                 if (empty($data)) continue;
                     $firstName = null;
                     $lastName = null;
+                    dump($info);
                  // データを分割
                  // 空白が含む場合
                     if (str_contains($data[1], ' ')) {
