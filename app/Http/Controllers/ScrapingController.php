@@ -38,8 +38,19 @@ class ScrapingController extends Controller
                     // 含まない場合は苗字
                         $lastName = $data[1];
                     }
-            
-            // playerdataのインスタンスを生成し、データベースのテーブルに保存
+                    /*
+                    // save(), insert() 時
+                    ([
+                        // 空もしくは string 型でない場合は null に整形
+                        'playerlastname' => (!empty($playerlastname) && is_string($playerlastname))
+                                                ? $playerlastname
+                                                : null,
+                        // int 型でなければ null に整形
+                        'times_at_but' => is_int($times_at_but) ?? null,
+                        'hit' => is_int($hit) ?? null,
+                    ])
+                    */
+                // playerdataのインスタンスを生成し、データベースのテーブルに保存
             
                 $playerdata1 = new Playerdata();
                 $playerdata1->lastname = $lastName;
@@ -89,6 +100,17 @@ class ScrapingController extends Controller
                     $lastName = $data[1];
                 }
             
+                /*
+                 ([
+                    // 空もしくは string 型でない場合は null に整形
+                    'playerlastname' => (!empty($playerlastname) && is_string($playerlastname))
+                                            ? $playerlastname
+                                            : null,
+                    // int 型でなければ null に整形
+                    'times_at_but' => is_int($times_at_but) ?? null,
+                    'hit' => is_int($hit) ?? null,
+                ])
+                */
                 // playerdataのインスタンスを生成し、データベースのテーブルに保存
                 $playerdata2 = new Playerdata2();
                 $playerdata2->lastname = $lastName;
