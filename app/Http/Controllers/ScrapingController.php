@@ -20,7 +20,7 @@ class ScrapingController extends Controller
                 return $td->text();
             });
             return $tdData;
-        });//選手データ分繰り返し
+        });//1か月ごとから試合分の結果を配列で取得～選手のデータを取得
          // for($i = 1; $i < count($info); $i++)  {
             foreach($info as $data) {
                 if (empty($data)) continue;
@@ -38,18 +38,7 @@ class ScrapingController extends Controller
                     // 含まない場合は苗字
                         $lastName = $data[1];
                     }
-                    /*
-                    // save(), insert() 時
-                    ([
-                        // 空もしくは string 型でない場合は null に整形
-                        'playerlastname' => (!empty($playerlastname) && is_string($playerlastname))
-                                                ? $playerlastname
-                                                : null,
-                        // int 型でなければ null に整形
-                        'times_at_but' => is_int($times_at_but) ?? null,
-                        'hit' => is_int($hit) ?? null,
-                    ])
-                    */
+                    
                 // playerdataのインスタンスを生成し、データベースのテーブルに保存
             
                 $playerdata1 = new Playerdata();
@@ -75,13 +64,15 @@ class ScrapingController extends Controller
         //  public function butterscraping()
      // ここからスクレイピングでデータを持ってくる。
         $client = new Client();
+        // 月ごとの試合のURLを書く。https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
+        // ページの試合結果に飛ぶタグの指定　bb-calendarTable__status
         $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
             $tdData = $tr->filter('.bb-playerTable__data')->each(function ($td) {
                return $td->text(); 
             });
             return $tdData();
-        });//選手データ分繰り返し
+        });
         // for($i = 1; $i < count($info); $i++)  {
             foreach($info as $data) {
                 if (empty($data)) continue;
@@ -100,17 +91,7 @@ class ScrapingController extends Controller
                     $lastName = $data[1];
                 }
             
-                /*
-                 ([
-                    // 空もしくは string 型でない場合は null に整形
-                    'playerlastname' => (!empty($playerlastname) && is_string($playerlastname))
-                                            ? $playerlastname
-                                            : null,
-                    // int 型でなければ null に整形
-                    'times_at_but' => is_int($times_at_but) ?? null,
-                    'hit' => is_int($hit) ?? null,
-                ])
-                */
+               
                 // playerdataのインスタンスを生成し、データベースのテーブルに保存
                 $playerdata2 = new Playerdata2();
                 $playerdata2->lastname = $lastName;
@@ -131,3 +112,18 @@ class ScrapingController extends Controller
             return redirect('/butterinfo');
     }
 }
+
+
+// 月ごとの試合結果の一覧ページから試合があった日の試合結果のURLを書く　https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04
+
+// URLから取得するデータのタグを指定　bb-calendarTable__status
+
+// データの表示
+
+    // URLから試合結果を取得（配列で日数分取得できるようにする）1か月ごとから試合分の結果を配列で取得
+    
+// 1試合ごとのページからその日の試合結果を取得。
+
+// 試合結果から選手ごとのその日の試合内容を取得
+
+// テーブルに保存
