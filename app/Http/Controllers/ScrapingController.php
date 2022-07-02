@@ -113,10 +113,9 @@ class ScrapingController extends Controller
     }
 }
 
+// 月ごとの試合結果の一覧ページのURLを書く　https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04
 
-// 月ごとの試合結果の一覧ページから試合があった日の試合結果のURLを書く　https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04
-
-// URLから取得するデータのタグを指定　bb-calendarTable__status
+// 月ごとの試合結果の一覧ページから試合があった日の試合結果を表示するURLから取得するデータのタグを指定　bb-calendarTable__status
 
 // データの表示
 
