@@ -114,15 +114,17 @@ class ScrapingController extends Controller
 }
 
 // 月ごとの試合結果の一覧ページのURLを書く　https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04
-
+$client = new Client();
+$crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04');// 4月の日程
 // 月ごとの試合結果の一覧ページから試合があった日の試合結果を表示するURLから取得するデータのタグを指定　bb-calendarTable__status
-
-// データの表示
-
+$info = $crawler->filter('.bb-calendarTable__status')->each(function ($tr) {
+// テキスト（文字列）で返す
+    return $td->text();
+});
     // URLから試合結果を取得（配列で日数分取得できるようにする）1か月ごとから試合分の結果を配列で取得
-    
+    foreach($months as $days){
 // 1試合ごとのページからその日の試合結果を取得。
 
 // 試合結果から選手ごとのその日の試合内容を取得
-
+}
 // テーブルに保存
