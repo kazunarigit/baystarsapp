@@ -119,7 +119,7 @@ $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/sch
 // 月ごとの試合結果の一覧ページから試合があった日の試合結果を表示するURLから取得するデータのタグを指定　bb-calendarTable__status
 $info = $crawler->filter('.bb-calendarTable__status')->each(function ($tr) {
 // テキスト（文字列）で返す
-    return $td->text();
+    return $tr->text();
 });
     // URLから試合結果を取得（配列で日数分取得できるようにする）1か月ごとから試合分の結果を配列で取得
     foreach($months as $days){
