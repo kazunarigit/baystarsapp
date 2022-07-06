@@ -124,6 +124,7 @@ $info = $crawler->filter('.bb-calendarTable__status')->each(function ($tr) {
     // URLから試合結果を取得（配列で日数分取得できるようにする）1か月ごとから試合分の結果を配列で取得
     foreach($months as $days){
 // 1試合ごとのページからその日の試合結果を取得。
+// ここにもクローリングするURLは必要か？
 
 // 試合結果から選手ごとのその日の試合内容を取得
 }
