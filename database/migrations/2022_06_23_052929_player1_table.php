@@ -16,16 +16,16 @@ class Player1Table extends Migration
         
         Schema::create('playerdata1', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('playerlastname'); //苗字
-            $table->string('playerfirstname')->nullable()->change(); //名前
-            $table->integer('times_at_but');  //打数
-            $table->integer('hit'); // 安打
-            $table->integer('hit_point');  // 打点
-            $table->float('hit_adv', 4, 3);// 打率	
-            $table->integer('homeruns'); // 本塁打	
-            $table->integer('steals'); // 盗塁
-            $table->integer('games');// 試合
-            $table->integer('box');// 打席
+            $table->string('lastname'); //苗字
+            $table->string('firstname')->nullable(); //名前
+            $table->integer('times_at_but')->nullable();  //打数
+            $table->integer('hit')->nullable(); // 安打
+            $table->integer('hit_point')->nullable();  // 打点
+            $table->float('hit_adv', 4, 3)->nullable();// 打率	
+            $table->integer('homeruns')->nullable(); // 本塁打	
+            $table->integer('steals')->nullable(); // 盗塁
+            $table->integer('games')->nullable();// 試合
+            $table->integer('box')->nullable();// 打席
             $table->timestamps();
         });
     }
