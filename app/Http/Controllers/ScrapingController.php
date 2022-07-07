@@ -121,10 +121,12 @@ $info = $crawler->filter('.bb-calendarTable__status')->each(function ($tr) {
 // テキスト（文字列）で返す
     return $tr->text();
 });
+// 結果を出力
+var_dump($info);
     // URLから試合結果を取得（配列で日数分取得できるようにする）1か月ごとから試合分の結果を配列で取得
     foreach($months as $days){
 // 1試合ごとのページをクローリングし、その日の試合結果を取得。
-// ここにもクローリングするURLは必要か？
+// ここにもクローリングするURLは必要か？必要なら、1試合ごとの結果ページのURLを書く。（または取ってくるタグを書く）
 // 試合がなければ、データの取得なし
         if($days == null){
             
@@ -132,6 +134,6 @@ $info = $crawler->filter('.bb-calendarTable__status')->each(function ($tr) {
             
         }
 
-// 試合結果から選手ごとのその日の試合内容を取得
+// 試合結果から選手ごとのその日の試合内容を取得（投手の一覧、打者の一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
     }
 // テーブルに保存
