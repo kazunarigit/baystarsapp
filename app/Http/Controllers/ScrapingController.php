@@ -118,22 +118,28 @@ $client = new Client();
 $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04');// 4月の日程
 // 月ごとの試合結果の一覧ページをクローリングし、試合があった日の試合結果を表示するURLから取得するデータのタグを指定　bb-calendarTable__status
 $info = $crawler->filter('.bb-calendarTable__status')->each(function ($tr) {
-// テキスト（文字列）で返す
+// $infoのURLの配列をデータベースに保存
     return $tr->text();
 });
 // 結果を出力
-var_dump($info);
+// var_dump($info);
     // URLから試合結果を取得（配列で日数分取得できるようにする）1か月ごとから試合分の結果を配列で取得
-    foreach($months as $days){
-// 1試合ごとのページをクローリングし、その日の試合結果を取得。
-// ここにもクローリングするURLは必要か？必要なら、1試合ごとの結果ページのURLを書く。（または取ってくるタグを書く）
-// 試合がなければ、データの取得なし
-        if($days == null){
-            
-        }else{
-            
-        }
+    foreach($info as $days){
+// 1試合ごとのページをクローリングし、その日の試合結果を取得。https://baseball.yahoo.co.jp/npb/game/2021005458/top 数字はその日によって違う。
+        $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/top');// 1試合ごとのURL
 
-// 試合結果から選手ごとのその日の試合内容を取得（投手の一覧、打者の一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
+    // 1試合ごとの対戦結果のタグは.bb-gamecard
+        $info = $crawler->filter('.bb-gamecard')->each(function ($tr) {
+            return $tr->text();
+        });
+        // その日の試合のURLはhttps://baseball.yahoo.co.jp/npb/game/2021005458/stats  
+        $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/stats');// 4月1日のURL
+        // その日の試合の選手の成績のタグは.bb-statsTable__row
+        $info = $crawler->filter('.bb-statsTable__row')->each(function ($tr) {
+            return $tr->text();
+        });
+
+
+// 試合結果から選手ごとのその日までの試合内容を取得（投手の一覧、打者の一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
     }
 // テーブルに保存
