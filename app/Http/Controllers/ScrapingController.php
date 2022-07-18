@@ -124,19 +124,26 @@ $info = $crawler->filter('.bb-calendarTable__status')->each(function ($tr) {
 // 結果を出力
 // var_dump($info);
     // URLから試合結果を取得（配列で日数分取得できるようにする）1か月ごとから試合分の結果を配列で取得
-    foreach($info as $days){
-// 1試合ごとのページをクローリングし、その日の試合結果を取得。https://baseball.yahoo.co.jp/npb/game/2021005458/top 数字はその日によって違う。
+    foreach($infodata as $day){
+// 1試合ごとの試合結果をクローリングし、その日の試合結果を取得。https://baseball.yahoo.co.jp/npb/game/2021005458/top 数字はその日によって違う。
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/top');// 1試合ごとのURL
 
-    // 1試合ごとの対戦結果のタグは.bb-gamecard
-        $info = $crawler->filter('.bb-gamecard')->each(function ($tr) {
+    // 1試合ごとの対戦点数のタグは.bb-gamecard
+        $topinfo = $crawler->filter('.bb-gamecard')->each(function ($tr) {
             return $tr->text();
         });
         // その日の試合のURLはhttps://baseball.yahoo.co.jp/npb/game/2021005458/stats  
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/stats');// 4月1日のURL
         // その日の試合の選手の成績のタグは.bb-statsTable__row
-        $info = $crawler->filter('.bb-statsTable__row')->each(function ($tr) {
+        $statsinfo = $crawler->filter('.bb-statsTable__row')->each(function ($tr) {
             return $tr->text();
+        });
+        // 選手成績のテーブルから、DeNAがホームの場合、テーブルの上と下どちらからデータを取るか
+        $statsinfo = $crawler->filter('.bb-teamScoreTable__row--home')->each(function ($tr) {
+            return $tr->text();
+            // ホームなら見出し2からクロールし、そうでない場合は見出し1からクロールする
+            
+            
         });
 
 
