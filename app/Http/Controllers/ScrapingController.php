@@ -128,13 +128,13 @@ $info = $crawler->filter('.bb-calendarTable__status')->each(function ($tr) {
 // 1試合ごとの試合結果をクローリングし、その日の試合結果を取得。https://baseball.yahoo.co.jp/npb/game/2021005458/top 数字はその日によって違う。
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/top');// 1試合ごとのURL
 
-    // 1試合ごとの対戦点数のタグは.bb-gamecard
+    // 1試合ごとの対戦点数を取ってくる。○対×
         $topinfo = $crawler->filter('.bb-gamecard')->each(function ($tr) {
             return $tr->text();
         });
-        // その日の試合のURLはhttps://baseball.yahoo.co.jp/npb/game/2021005458/stats  
+        // その日の試合の成績のURLを取ってくる。  
         $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/stats');// 4月1日のURL
-        // その日の試合の選手の成績のタグは.bb-statsTable__row
+        // その日の試合の選手の成績をクロールする。 投手：投球回など 打者：打席・安打など
         $statsinfo = $crawler->filter('.bb-statsTable__row')->each(function ($tr) {
             return $tr->text();
         });
@@ -147,6 +147,6 @@ $info = $crawler->filter('.bb-calendarTable__status')->each(function ($tr) {
         });
 
 
-// 試合結果から選手ごとのその日までの試合内容を取得（投手の一覧、打者の一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
+// 試合結果から選手ごとのその日までの試合内容を取得（投手の通算成績一覧、打者の通算成績一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
     }
 // テーブルに保存
