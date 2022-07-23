@@ -11,142 +11,129 @@ use App\Models\Playerdata2;
 
 class ScrapingController extends Controller
 {
-    public function scraping(Request $request)
-    {   // ここからスクレイピングデータを持ってくる。
-        $client = new Client();
-        $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
-        $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
-            $tdData = $tr->filter('.bb-playerTable__data')->each(function ($td) {
-                return $td->text();
-            });
-            return $tdData;
-        });//1か月ごとから試合分の結果を配列で取得～選手のデータを取得
-         // for($i = 1; $i < count($info); $i++)  {
-            foreach($info as $data) {
-                if (empty($data)) continue;
-                    $firstName = null;
-                    $lastName = null;
-                    dump($info);
-                 // データを分割
-                 // 空白が含む場合
-                    if (str_contains($data[1], ' ')) {
-                    // 空白が含む場合は 苗字、名前で分割
-                        $name = explode(" ", $data[1]);
-                        $lastName = $name[0];
-                        $firstName = $name[1];
-                    } else {
-                    // 含まない場合は苗字
-                        $lastName = $data[1];
-                    }
+    // public function scraping(Request $request)
+    // {   // ここからスクレイピングデータを持ってくる。
+    //     $client = new Client();
+    //     $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
+    //     $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
+    //         $tdData = $tr->filter('.bb-playerTable__data')->each(function ($td) {
+    //             return $td->text();
+    //         });
+    //         return $tdData;
+    //     });//1か月ごとから試合分の結果を配列で取得～選手のデータを取得
+    //      
+    //                 }
                     
-                // playerdataのインスタンスを生成し、データベースのテーブルに保存
+    //             // playerdataのインスタンスを生成し、データベースのテーブルに保存
             
-                $playerdata1 = new Playerdata();
-                $playerdata1->lastname = $lastName;
-                $playerdata1->firstname = $firstName;
-                $playerdata1->times_at_but = $data[5];
-                $playerdata1->hit = $data[7];
-                $playerdata1->hit_point = $data[12];
-                $playerdata1->hit_adv = (int)$data[3] / 100;
-                $playerdata1->homeruns = $data[10];
-                $playerdata1->steals = $data[19];
-                $playerdata1->games = $data[4];
-                $playerdata1->box = $data[6];
-                 // if($data[1] == "オースティン") {
-                 //         dd($data,$playerdata);
-                 //     }
+    //             $playerdata1 = new Playerdata();
+    //             $playerdata1->lastname = $lastName;
+    //             $playerdata1->firstname = $firstName;
+    //             $playerdata1->times_at_but = $data[5];
+    //             $playerdata1->hit = $data[7];
+    //             $playerdata1->hit_point = $data[12];
+    //             $playerdata1->hit_adv = (int)$data[3] / 100;
+    //             $playerdata1->homeruns = $data[10];
+    //             $playerdata1->steals = $data[19];
+    //             $playerdata1->games = $data[4];
+    //             $playerdata1->box = $data[6];
+    //              // if($data[1] == "オースティン") {
+    //              //         dd($data,$playerdata);
+    //              //     }
             
-                $playerdata1->save();
-            }    
+    //             $playerdata1->save();
+    //         }    
     
-            return redirect('/pitcherinfo');
+    //         return redirect('/pitcherinfo');
         
-        //  public function butterscraping()
-     // ここからスクレイピングでデータを持ってくる。
-        $client = new Client();
-        // 月ごとの試合のURLを書く。https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04
-        $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
-        // ページの試合結果に飛ぶタグの指定　bb-calendarTable__status
-        $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
-            $tdData = $tr->filter('.bb-playerTable__data')->each(function ($td) {
-               return $td->text(); 
-            });
-            return $tdData();
-        });
-        // for($i = 1; $i < count($info); $i++)  {
-            foreach($info as $data) {
-                if (empty($data)) continue;
-                $firstName = null;
-                $lastName = null;
-                // データを分割
-                // 空白が含む場合
-                if (str_contains($data[1], ' ')) {
-                    // 空白が含む場合は 苗字、名前で分割
-                    // $data = explode(" ", $info[$i]);
-                    $name = explode(" ", $data[i]);
-                    $lastName = $name[0];
-                    $firstName = $name[1];
-                } else {
-                    // 含まない場合は苗字
-                    $lastName = $data[1];
-                }
+    //     //  public function butterscraping()
+    //  // ここからスクレイピングでデータを持ってくる。
+    //     $client = new Client();
+    //     // 月ごとの試合のURLを書く。https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04
+    //     $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
+    //     // ページの試合結果に飛ぶタグの指定　bb-calendarTable__status
+    //     $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
+    //         $tdData = $tr->filter('.bb-playerTable__data')->each(function ($td) {
+    //           return $td->text(); 
+    //         });
+    //         return $tdData();
+    //     });
+    //     
             
                
-                // playerdataのインスタンスを生成し、データベースのテーブルに保存
-                $playerdata2 = new Playerdata2();
-                $playerdata2->lastname = $lastName;
-                $playerdata2->firstname = $firstName;
-                $playerdata2->ining = $data[4];
-                $playerdata2->hit_by_a_pitch = $data[16];
-                $playerdata2->by_homeruns = $data[17];
-                $playerdata2->wins = $data[9];
-                $playerdata2->loses = $data[10];
-                $playerdata2->saves = $data[13];
-                $playerdata2->resp_points = $data[25];
-                $playerdata2->lost_points = $data[24];
-                $playerdata2->saved_adv = (int)$data[3] / 100;
+    //             // playerdataのインスタンスを生成し、データベースのテーブルに保存
+    //             $playerdata2 = new Playerdata2();
+    //             $playerdata2->lastname = $lastName;
+    //             $playerdata2->firstname = $firstName;
+    //             $playerdata2->ining = $data[4];
+    //             $playerdata2->hit_by_a_pitch = $data[16];
+    //             $playerdata2->by_homeruns = $data[17];
+    //             $playerdata2->wins = $data[9];
+    //             $playerdata2->loses = $data[10];
+    //             $playerdata2->saves = $data[13];
+    //             $playerdata2->resp_points = $data[25];
+    //             $playerdata2->lost_points = $data[24];
+    //             $playerdata2->saved_adv = (int)$data[3] / 100;
                 
-                $playerdata2->save();
-            }    
+    //             $playerdata2->save();
+    //         }    
     
-            return redirect('/butterinfo');
+    //         return redirect('/butterinfo');
+    // }
+
+    public function scraping(Request $request)
+    {
+        // 月ごとの試合結果の一覧ページのURLを書く　https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04
+        $client = new Client();
+        $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04');// 4月の日程
+        // 月ごとの試合結果の一覧ページをクローリングし、試合があった日の試合結果を表示するURLから取得するデータのタグを指定　bb-calendarTable__status
+        
+        $info = $crawler->filter('.bb-calendarTable__status')->each(function ($tr) {
+        // $infoのURLの配列をデータベースに保存
+            return $tr->text();
+        });
+        
+        // 結果を出力
+        // var_dump($info);
+        
+        // URLから試合結果を取得（配列で日数分取得できるようにする）1か月ごとから試合分の結果を配列で取得
+        foreach($info as $day){
+        // 1試合ごとの試合結果をクローリングし、その日の試合結果を取得。https://baseball.yahoo.co.jp/npb/game/2021005458/top 数字はその日によって違う。
+            $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/top');// 1試合ごとのURL
+    
+        // 1試合ごとの対戦点数を取ってくる。○対×
+            $topinfo = $crawler->filter('.bb-gamecard')->each(function ($tr) {
+                return $tr->text();
+            });
+            
+            // その日の試合の成績のURLを取ってくる。  
+            $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/stats');// 4月1日のURL
+            
+            // その日の試合の選手の成績をクロールする。 投手：投球回など 打者：打席・安打など
+            $statsinfo = $crawler->filter('.bb-statsTable__row')->each(function ($tr) {
+                return $tr->text();
+            });
+            
+            // 選手成績のテーブルから、DeNAがホームの場合、テーブルの上と下どちらからデータを取るか
+            $statsinfo2 = $crawler->filter('.bb-teamScoreTable__row--home')->each(function ($tr) {
+                return $tr->text();
+                // DeNA7がホームなら見出しからクロールし、そうでない場合は見出し1からクロールする
+                
+                
+            });
+            
+            $team = 0;
+            dd($statsinfo2);
+            if($statsinfo2 == "DeNA"){
+                $team = 'home';
+            }else{
+                $team = 'away';
+            }
+        }   
+
+        // 試合結果から選手ごとのその日までの試合内容を取得（投手の通算成績一覧、打者の通算成績一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
+        // テーブルに保存
+            
+        return redirect('/butterinfo');
     }
 }
-
-// 月ごとの試合結果の一覧ページのURLを書く　https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04
-$client = new Client();
-$crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04');// 4月の日程
-// 月ごとの試合結果の一覧ページをクローリングし、試合があった日の試合結果を表示するURLから取得するデータのタグを指定　bb-calendarTable__status
-$info = $crawler->filter('.bb-calendarTable__status')->each(function ($tr) {
-// $infoのURLの配列をデータベースに保存
-    return $tr->text();
-});
-// 結果を出力
-// var_dump($info);
-    // URLから試合結果を取得（配列で日数分取得できるようにする）1か月ごとから試合分の結果を配列で取得
-    foreach($infodata as $day){
-// 1試合ごとの試合結果をクローリングし、その日の試合結果を取得。https://baseball.yahoo.co.jp/npb/game/2021005458/top 数字はその日によって違う。
-        $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/top');// 1試合ごとのURL
-
-    // 1試合ごとの対戦点数を取ってくる。○対×
-        $topinfo = $crawler->filter('.bb-gamecard')->each(function ($tr) {
-            return $tr->text();
-        });
-        // その日の試合の成績のURLを取ってくる。  
-        $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/stats');// 4月1日のURL
-        // その日の試合の選手の成績をクロールする。 投手：投球回など 打者：打席・安打など
-        $statsinfo = $crawler->filter('.bb-statsTable__row')->each(function ($tr) {
-            return $tr->text();
-        });
-        // 選手成績のテーブルから、DeNAがホームの場合、テーブルの上と下どちらからデータを取るか
-        $statsinfo = $crawler->filter('.bb-teamScoreTable__row--home')->each(function ($tr) {
-            return $tr->text();
-            // ホームなら見出し2からクロールし、そうでない場合は見出し1からクロールする
-            
-            
-        });
-
-
-// 試合結果から選手ごとのその日までの試合内容を取得（投手の通算成績一覧、打者の通算成績一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
-    }
-// テーブルに保存
