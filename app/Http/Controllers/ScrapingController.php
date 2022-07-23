@@ -107,7 +107,7 @@ class ScrapingController extends Controller
             });
             
             // その日の試合の成績のURLを取ってくる。  
-            $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/stats');// 4月1日のURL
+            $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/stats/#game-board');// 4月1日のURL
             
             // その日の試合の選手の成績をクロールする。 投手：投球回など 打者：打席・安打など
             $statsinfo = $crawler->filter('.bb-statsTable__row')->each(function ($tr) {
@@ -124,7 +124,7 @@ class ScrapingController extends Controller
             
             $team = 0;
             dd($statsinfo2);
-            if($statsinfo2 == "DeNA"){
+            if($statsinfo2 == "DeNA" && $statsinfo == '選手名'){
                 $team = 'home';
             }else{
                 $team = 'away';
@@ -134,6 +134,6 @@ class ScrapingController extends Controller
         // 試合結果から選手ごとのその日までの試合内容を取得（投手の通算成績一覧、打者の通算成績一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
         // テーブルに保存
             
-        return redirect('/butterinfo');
+        return redirect('/scraping');
     }
 }
