@@ -112,12 +112,12 @@ class ScrapingController extends Controller
             $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/stats/#game-board');// 4月1日のURL
             
             // その日の試合の選手の成績をクロールする。 投手：投球回など 打者：打席・安打など
-            $statsinfo = $crawler->filter('.bb-statsTable__headLabel')->each(function ($tr) {
+            $statsinfo = $crawler->filter('.bb-statsTable__row')->each(function ($tr) {
                 return $tr->text();
             });
             
             // 選手成績のテーブルから、DeNAがホームの場合、テーブルの上と下どちらからデータを取るか
-            $statsinfo2 = $crawler->filter('.bb-statsTable__data--player')->each(function ($tr) {
+            $statsinfo2 = $crawler->filter('.bb-statsTable__row--home')->each(function ($tr) {
                 return $tr->text();
                 // DeNA7がホームなら見出しからクロールし、そうでない場合は見出し1からクロールする
                 
@@ -126,7 +126,7 @@ class ScrapingController extends Controller
             
             $team = 0;
             // dd($statsinfo2);
-            if($statsinfo2 == "桑原" && $statsinfo == '選手名'){
+            if($statsinfo2[1] == "桑原"){
                 $team = 'home';
             }else{
                 $team = 'away';
