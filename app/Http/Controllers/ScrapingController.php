@@ -126,17 +126,24 @@ class ScrapingController extends Controller
             
                 // 選手の成績テーブル（.bb-statsTable__row）の選手の名前を上から順にクローリングして配列に入れる
                 // DeNAの選手なら順に見ていき、違えば見ない。
+                
+                // 処理の出力
             
                 $team = 0;
                 // statsinfo2のインデックス番号１に”桑原”という選手がいるかを判定
                 if($statsinfo2[1] == "桑原"){
                     // いればホーム
                     $team = 'home';
+                    echo $team;
                 }else{
                     // いなければアウェイ
                     $team = 'away';
+                    echo $team;
                 }
                 dd($statsinfo, $statsinfo2);
+                
+            // 処理の出力
+            // print $day;
             
         }   
 
