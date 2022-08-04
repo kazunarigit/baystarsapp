@@ -125,10 +125,17 @@ class ScrapingController extends Controller
             });
             
                 // 選手の成績テーブル（.bb-statsTable__row）の選手の名前を上から順にクローリングして配列に入れる
+                foreach($statsinfo as $list){
+                    // ラベルの名前が位置なら飛ばして、選手の名前から見る。
+                    if(".bb-statsTable__headLabel" == "位置"){
+                        continue;
+                    }
+                }
                 // DeNAの選手なら順に見ていき、違えば見ない。
                 
                 // 処理の出力
-            
+                echo $list;
+                
                 $team = 0;
                 // statsinfoのインデックス番号１に”桑原”という選手がいるかを判定
                 // またはstatsinfo2のインデックス番号１に”DeNA”があるか判定
