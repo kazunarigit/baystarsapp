@@ -117,38 +117,40 @@ class ScrapingController extends Controller
             });
             
             // 選手成績のテーブルから、DeNAがホームの場合、テーブルの上と下どちらからデータを取るか
-            $statsinfo2 = $crawler->filter('.bb-statsTable__row--home')->each(function ($tr) {
+            $teamname = $crawler->filter('.bb-teamScoreTable__row--home .bb-gameScoreTable__team--npbTeam3')->each(function ($tr) {
                 return $tr->text();
                 // DeNA7がホームなら見出しからクロールし、そうでない場合は見出し1からクロールする
                 
                 
             });
             
-                // 選手の成績テーブル（.bb-statsTable__row）の選手の名前を上から順にクローリングして配列に入れる
-                foreach($statsinfo as $list){
-                    // ラベルの名前が位置なら飛ばして、選手の名前から見る。
-                    if(".bb-statsTable__headLabel" == "位置"){
-                        continue;
-                    }
+            // 選手の成績テーブル（.bb-statsTable__row）の選手の名前を上から順にクローリングして配列に入れる
+            foreach($statslist as $statsinfo){
+            // ラベルの名前が位置なら飛ばして、選手の名前から見る。
+                if(".bb-statsTable__headLabel" == "位置"){
+                    continue;
                 }
-                // DeNAの選手なら順に見ていき、違えば見ない。
-                
                 // 処理の出力
-                echo $list;
-                
-                $team = 0;
-                // statsinfoのインデックス番号１に”桑原”という選手がいるかを判定
-                // またはstatsinfo2のインデックス番号１に”DeNA”があるか判定
-                if($statsinfo[1] == "桑原" or $statsinfo2[1] == "DeNA"){
-                    // いればホーム
-                    $team = 'home';
-                    echo $team;
-                }else{
-                    // いなければアウェイ
-                    $team = 'away';
-                    echo $team;
-                }
-                dd($statsinfo, $statsinfo2);
+                echo $statsinfo;
+            }
+            // DeNAの選手なら順に見ていき、違えば見ない。
+            
+            // dd($statsinfo, $statsinfo2);
+            // 0ではなく、文字列型
+            $team = "away";
+            // statsinfoのインデックス番号１に”桑原”という選手がいるかを判定
+            // またはstatsinfo2のインデックス番号１に”DeNA”があるか判定
+            // teamnameの配列の要素があるかないか判定
+            if($teamname[0] == "DeNA"){
+                // いればホーム
+                $team = 'home';
+                echo $team;
+            }else{
+                // いなければアウェイ
+                $team = 'away';
+                echo $team;
+            }
+            // dd($statsinfo, $statsinfo2);
                 
             // 処理の出力
             // print $day;
