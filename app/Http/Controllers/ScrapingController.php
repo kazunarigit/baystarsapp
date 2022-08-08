@@ -125,9 +125,9 @@ class ScrapingController extends Controller
             });
             
             // 選手の成績テーブル（.bb-statsTable__row）の選手の名前を上から順にクローリングして配列に入れる
-            foreach($statslist as $statsinfo){
+            foreach($statslist as $statsinfo){ // これでいいですか？
             // ラベルの名前が位置なら飛ばして、選手の名前から見る。
-                if(".bb-statsTable__headLabel" == "位置"){
+                if(".bb-statsTable__headLabel" == "位置"){// ここが不明
                     continue;
                 }
                 // 処理の出力
@@ -136,8 +136,8 @@ class ScrapingController extends Controller
             // DeNAの選手なら順に見ていき、違えば見ない。
             
             // dd($statsinfo, $statsinfo2);
-            // 0ではなく、文字列型
-            $team = "away";
+            // 0ではなく、文字列型（空文字列）
+            $team = "";
             // statsinfoのインデックス番号１に”桑原”という選手がいるかを判定
             // またはstatsinfo2のインデックス番号１に”DeNA”があるか判定
             // teamnameの配列の要素があるかないか判定
