@@ -112,7 +112,7 @@ class ScrapingController extends Controller
             $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/stats/');// 4月1日のURL
             
             // その日の試合の選手の成績をクロールする。 投手：投球回など 打者：打席・安打など
-            $statsinfo = $crawler->filter('.bb-statsTable__row')->each(function ($tr) {
+            $statslist = $crawler->filter('.bb-statsTable__row')->each(function ($tr) {
                 return $tr->text();
             });
             
@@ -131,17 +131,18 @@ class ScrapingController extends Controller
                     continue;
                 }
                 // 処理の出力
-                echo $statsinfo;
+                print_r($statsinfo);
             }
+        }
             // DeNAの選手なら順に見ていき、違えば見ない。
             
             // dd($statsinfo, $statsinfo2);
             // 0ではなく、文字列型（空文字列）
+            // dd($teamname);
             $team = "";
-            // statsinfoのインデックス番号１に”桑原”という選手がいるかを判定
-            // またはstatsinfo2のインデックス番号１に”DeNA”があるか判定
-            // teamnameの配列の要素があるかないか判定
-            if($teamname[0] == "DeNA"){
+            
+            // teamnameの配列の要素にDeNAがあるかないか判定
+            if(array_key_exists("DeNA", $teamname)){
                 // いればホーム
                 $team = 'home';
                 echo $team;
@@ -150,12 +151,12 @@ class ScrapingController extends Controller
                 $team = 'away';
                 echo $team;
             }
-            // dd($statsinfo, $statsinfo2);
+            dd($teamname);
                 
             // 処理の出力
             // print $day;
             
-        }   
+        
 
         // 試合結果から選手ごとのその日までの試合内容を取得（投手の通算成績一覧、打者の通算成績一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
         // テーブルに保存
