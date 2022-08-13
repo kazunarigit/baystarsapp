@@ -141,7 +141,7 @@ class ScrapingController extends Controller
             // dd($teamname);
             $team = "";
             
-            // teamnameの配列の要素にDeNAがあるかないか判定
+            // teamnameの配列に要素があるかないか判定
             if(array_key_exists("DeNA", $teamname)){
                 // いればホーム
                 $team = 'home';
