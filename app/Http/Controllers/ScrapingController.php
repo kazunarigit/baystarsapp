@@ -11,18 +11,7 @@ use App\Models\Playerdata2;
 
 class ScrapingController extends Controller
 {
-    // public function scraping(Request $request)
-    // {   // ここからスクレイピングデータを持ってくる。
-    //     $client = new Client();
-    //     $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=b');
-    //     $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
-    //         $tdData = $tr->filter('.bb-playerTable__data')->each(function ($td) {
-    //             return $td->text();
-    //         });
-    //         return $tdData;
-    //     });//1か月ごとから試合分の結果を配列で取得～選手のデータを取得
-    //      
-    //                 }
+    
                     
     //             // playerdataのインスタンスを生成し、データベースのテーブルに保存
             
@@ -46,18 +35,7 @@ class ScrapingController extends Controller
     
     //         return redirect('/pitcherinfo');
         
-    //     //  public function butterscraping()
-    //  // ここからスクレイピングでデータを持ってくる。
-    //     $client = new Client();
-    //     // 月ごとの試合のURLを書く。https://baseball.yahoo.co.jp/npb/teams/3/schedule?month=2022-04
-    //     $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/teams/3/memberlist?kind=p');
-    //     // ページの試合結果に飛ぶタグの指定　bb-calendarTable__status
-    //     $info = $crawler->filter('.bb-playerTable__row')->each(function ($tr) {
-    //         $tdData = $tr->filter('.bb-playerTable__data')->each(function ($td) {
-    //           return $td->text(); 
-    //         });
-    //         return $tdData();
-    //     });
+    
     //     
             
                
@@ -142,7 +120,7 @@ class ScrapingController extends Controller
             $team = "";
             
             // teamnameの配列に要素があるかないか判定
-            if(array_key_exists("DeNA", $teamname)){
+            if(array_key_exists("home", $teamname)){
                 // いればホーム
                 $team = 'home';
                 echo $team;
