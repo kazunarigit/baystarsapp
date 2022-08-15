@@ -121,6 +121,7 @@ class ScrapingController extends Controller
             
             // teamnameの配列に要素があるかないか判定
             if(array_key_exists("home", $teamname)){
+            // if(count($teamname)){ もう一つの例
                 // いればホーム
                 $team = 'home';
                 echo $team;
