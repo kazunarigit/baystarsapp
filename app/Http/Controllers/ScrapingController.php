@@ -11,53 +11,6 @@ use App\Models\Playerdata2;
 
 class ScrapingController extends Controller
 {
-    
-                    
-    //             // playerdataのインスタンスを生成し、データベースのテーブルに保存
-            
-    //             $playerdata1 = new Playerdata();
-    //             $playerdata1->lastname = $lastName;
-    //             $playerdata1->firstname = $firstName;
-    //             $playerdata1->times_at_but = $data[5];
-    //             $playerdata1->hit = $data[7];
-    //             $playerdata1->hit_point = $data[12];
-    //             $playerdata1->hit_adv = (int)$data[3] / 100;
-    //             $playerdata1->homeruns = $data[10];
-    //             $playerdata1->steals = $data[19];
-    //             $playerdata1->games = $data[4];
-    //             $playerdata1->box = $data[6];
-    //              // if($data[1] == "オースティン") {
-    //              //         dd($data,$playerdata);
-    //              //     }
-            
-    //             $playerdata1->save();
-    //         }    
-    
-    //         return redirect('/pitcherinfo');
-        
-    
-    //     
-            
-               
-    //             // playerdataのインスタンスを生成し、データベースのテーブルに保存
-    //             $playerdata2 = new Playerdata2();
-    //             $playerdata2->lastname = $lastName;
-    //             $playerdata2->firstname = $firstName;
-    //             $playerdata2->ining = $data[4];
-    //             $playerdata2->hit_by_a_pitch = $data[16];
-    //             $playerdata2->by_homeruns = $data[17];
-    //             $playerdata2->wins = $data[9];
-    //             $playerdata2->loses = $data[10];
-    //             $playerdata2->saves = $data[13];
-    //             $playerdata2->resp_points = $data[25];
-    //             $playerdata2->lost_points = $data[24];
-    //             $playerdata2->saved_adv = (int)$data[3] / 100;
-                
-    //             $playerdata2->save();
-    //         }    
-    
-    //         return redirect('/butterinfo');
-    // }
 
     public function scraping(Request $request)
     {
@@ -120,8 +73,7 @@ class ScrapingController extends Controller
             $team = "";
             
             // teamnameの配列に要素があるかないか判定
-            // if(array_key_exists("home", $teamname)){
-            if(count($teamname) == 0){ //もう一つの例
+            if(count($teamname) == 0){
                 // いればホーム
                 $team = 'home';
                 echo $team;
@@ -139,6 +91,9 @@ class ScrapingController extends Controller
 
         // 試合結果から選手ごとのその日までの試合内容を取得（投手の通算成績一覧、打者の通算成績一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
         // テーブルに保存
+        $data = new Data;
+        $data->statsinfo = $statsinfo;
+        $data->save();
             
         return redirect('/scraping');
     }
