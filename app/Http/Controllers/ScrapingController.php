@@ -31,10 +31,10 @@ class ScrapingController extends Controller
         // URLから試合結果を取得（配列で日数分取得できるようにする）
         // 1か月ごとから試合分の結果を配列で取得
         foreach($info as $day){
-        // 1試合ごとの試合結果をクローリングし、その日の試合結果を取得。https://baseball.yahoo.co.jp/npb/game/2021005458/top 数字はその日によって違う。
+            // 1試合ごとの試合結果をクローリングし、その日の試合結果を取得。https://baseball.yahoo.co.jp/npb/game/2021005458/top 数字はその日によって違う。
             $crawler = $client->request('GET', 'https://baseball.yahoo.co.jp/npb/game/2021005458/top');// 1試合ごとのURL
     
-        // 1試合ごとの対戦点数を取ってくる。○対×
+            // 1試合ごとの対戦点数を取ってくる。○対×
             $topinfo = $crawler->filter('.bb-gamecard')->each(function ($tr) {
                 return $tr->text();
             });
@@ -57,7 +57,7 @@ class ScrapingController extends Controller
             
             // 選手の成績テーブル（.bb-statsTable__row）の選手の名前を上から順にクローリングして配列に入れる
             foreach($statslist as $statsinfo){ // これでいいですか？
-            // ラベルの名前が位置なら飛ばして、選手の名前から見る。
+                // ラベルの名前が位置なら飛ばして、選手の名前から見る。
                 if(".bb-statsTable__headLabel" == "位置"){// ここが不明
                     continue;
                 }
