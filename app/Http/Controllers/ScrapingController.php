@@ -91,10 +91,11 @@ class ScrapingController extends Controller
 
         // 試合結果から選手ごとのその日までの試合内容を取得（投手の通算成績一覧、打者の通算成績一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
         // テーブルに保存
-        $data = new Data;
-        $data->statsinfo = $statsinfo;
-        $data->save();
-            
+        /*
+        $scrapingcontroller = new ScrapingController;
+        $scrapingcontroller->statsinfo = $statsinfo;
+        $scrapingcontroller->save();
+        */    
         return redirect('/scraping');
     }
 }
