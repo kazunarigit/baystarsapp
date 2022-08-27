@@ -56,8 +56,10 @@ class ScrapingController extends Controller
             });
             
             // 選手の成績テーブル（.bb-statsTable__row）の選手の名前を上から順にクローリングして配列に入れる
-            foreach($statslist as $statsinfo){ // これでいいですか？
-                // ラベルの名前が位置なら飛ばして、選手の名前から見る。
+            //for文でデータの開始位置と終了値を設定して、回す
+            // home = '';
+            foreach($statslist as $statsinfo){
+                // statslistでホームとアウェイの開始位置をどう判断するか？
                 if(".bb-statsTable__headLabel" == "位置"){// ここが不明
                     continue;
                 }
@@ -67,7 +69,7 @@ class ScrapingController extends Controller
         }
             // DeNAの選手なら順に見ていき、違えば見ない。
             
-            // dd($statsinfo, $statsinfo2);
+            dd($statslist);
             // 0ではなく、文字列型（空文字列）
             // dd($teamname);
             $team = "";
@@ -82,7 +84,7 @@ class ScrapingController extends Controller
                 $team = 'away';
                 echo $team;
             }
-            dd($teamname);
+            // dd($teamname);
                 
             // 処理の出力
             // print $day;
@@ -91,11 +93,49 @@ class ScrapingController extends Controller
 
         // 試合結果から選手ごとのその日までの試合内容を取得（投手の通算成績一覧、打者の通算成績一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
         // テーブルに保存
-        /*
-        $scrapingcontroller = new ScrapingController;
-        $scrapingcontroller->statsinfo = $statsinfo;
-        $scrapingcontroller->save();
-        */    
-        return redirect('/scraping');
+        
+                    //  playerdataのインスタンスを生成し、データベースのテーブルに保存
+            
+                $playerdata1 = new Playerdata();
+                $playerdata1->lastname = $lastname;
+                $playerdata1->firstname = $firstname;
+                $playerdata1->times_at_but = $data[5];
+                $playerdata1->hit = $data[7];
+                $playerdata1->hit_point = $data[12];
+                $playerdata1->hit_adv = (int)$data[3] / 100;
+                $playerdata1->homeruns = $data[10];
+                $playerdata1->steals = $data[19];
+                $playerdata1->games = $data[4];
+                $playerdata1->box = $data[6];
+    
+                $playerdata1->save();
+    //         }    
+    
+    //         return redirect('/pitcherinfo');
+        
+    
+    //     
+            
+               
+    //             // playerdataのインスタンスを生成し、データベースのテーブルに保存
+                $playerdata2 = new Playerdata2();
+                $playerdata2->lastname = $lastname;
+                $playerdata2->firstname = $firstname;
+                $playerdata2->ining = $data[4];
+                $playerdata2->hit_by_a_pitch = $data[16];
+                $playerdata2->by_homeruns = $data[17];
+                $playerdata2->wins = $data[9];
+                $playerdata2->loses = $data[10];
+                $playerdata2->saves = $data[13];
+                $playerdata2->resp_points = $data[25];
+                $playerdata2->lost_points = $data[24];
+                $playerdata2->saved_adv = (int)$data[3] / 100;
+                
+                $playerdata2->save();
+    //         }    
+    
+    //         return redirect('/butterinfo');
+            
+        return view('/scraping');
     }
 }
