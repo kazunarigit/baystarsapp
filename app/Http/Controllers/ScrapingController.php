@@ -50,21 +50,21 @@ class ScrapingController extends Controller
             // 選手成績のテーブルから、DeNAがホームの場合、テーブルの上と下どちらからデータを取るか
             $teamname = $crawler->filter('.bb-teamScoreTable__row--home .bb-gameScoreTable__team--npbTeam3')->each(function ($tr) {
                 return $tr->text();
-                // DeNA7がホームなら見出しからクロールし、そうでない場合は見出し1からクロールする
+                // DeNAがホームなら見出しからクロールし、そうでない場合は見出し1からクロールする
                 
                 
             });
             
             // 選手の成績テーブル（.bb-statsTable__row）の選手の名前を上から順にクローリングして配列に入れる
             //for文でデータの開始位置と終了値を設定して、回す
-            // home = '';
-            foreach($statslist as $statsinfo){
+            $home = 16;
+            for($i = $home; $i < $statslist; $i++){
                 // statslistでホームとアウェイの開始位置をどう判断するか？
                 if(".bb-statsTable__headLabel" == "位置"){// ここが不明
                     continue;
                 }
                 // 処理の出力
-                print_r($statsinfo);
+                print_r($statslist[$i]);
             }
         }
             // DeNAの選手なら順に見ていき、違えば見ない。
@@ -95,14 +95,14 @@ class ScrapingController extends Controller
         // テーブルに保存
         
                     //  playerdataのインスタンスを生成し、データベースのテーブルに保存
-            
+            /*
                 $playerdata1 = new Playerdata();
                 $playerdata1->lastname = $lastname;
                 $playerdata1->firstname = $firstname;
                 $playerdata1->times_at_but = $data[5];
                 $playerdata1->hit = $data[7];
                 $playerdata1->hit_point = $data[12];
-                $playerdata1->hit_adv = (int)$data[3] / 100;
+                $playerdata1->hit_adv = (int)$average[3] / 100;
                 $playerdata1->homeruns = $data[10];
                 $playerdata1->steals = $data[19];
                 $playerdata1->games = $data[4];
@@ -135,7 +135,7 @@ class ScrapingController extends Controller
     //         }    
     
     //         return redirect('/butterinfo');
-            
+            */
         return view('/scraping');
     }
 }
