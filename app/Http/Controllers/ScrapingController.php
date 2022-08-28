@@ -58,13 +58,13 @@ class ScrapingController extends Controller
             // 選手の成績テーブル（.bb-statsTable__row）の選手の名前を上から順にクローリングして配列に入れる
             //for文でデータの開始位置と終了値を設定して、回す
             $home = 16;
-            for($i = $home; $i < $statslist; $i++){
+            for($i = $home; $i < count($statslist); $i++){
                 // statslistでホームとアウェイの開始位置をどう判断するか？
                 if(".bb-statsTable__headLabel" == "位置"){// ここが不明
                     continue;
                 }
                 // 処理の出力
-                print_r($statslist[$i]);
+                echo($statslist[$i]);
             }
         }
             // DeNAの選手なら順に見ていき、違えば見ない。
@@ -95,18 +95,17 @@ class ScrapingController extends Controller
         // テーブルに保存
         
                     //  playerdataのインスタンスを生成し、データベースのテーブルに保存
-            /*
+            
                 $playerdata1 = new Playerdata();
-                $playerdata1->lastname = $lastname;
-                $playerdata1->firstname = $firstname;
-                $playerdata1->times_at_but = $data[5];
-                $playerdata1->hit = $data[7];
-                $playerdata1->hit_point = $data[12];
+                $playerdata1->player = $player;
+                $playerdata1->times_at_but = $atBat[5];
+                $playerdata1->hit = $hit[7];
+                $playerdata1->hit_point = $rbi[12];
                 $playerdata1->hit_adv = (int)$average[3] / 100;
-                $playerdata1->homeruns = $data[10];
-                $playerdata1->steals = $data[19];
-                $playerdata1->games = $data[4];
-                $playerdata1->box = $data[6];
+                $playerdata1->homeruns = $homerun[10];
+                $playerdata1->steals = $stolenBase[19];
+                $playerdata1->games = $game[4];
+                $playerdata1->box = $plateAppearance[6];
     
                 $playerdata1->save();
     //         }    
@@ -119,23 +118,22 @@ class ScrapingController extends Controller
                
     //             // playerdataのインスタンスを生成し、データベースのテーブルに保存
                 $playerdata2 = new Playerdata2();
-                $playerdata2->lastname = $lastname;
-                $playerdata2->firstname = $firstname;
-                $playerdata2->ining = $data[4];
-                $playerdata2->hit_by_a_pitch = $data[16];
-                $playerdata2->by_homeruns = $data[17];
-                $playerdata2->wins = $data[9];
-                $playerdata2->loses = $data[10];
-                $playerdata2->saves = $data[13];
-                $playerdata2->resp_points = $data[25];
-                $playerdata2->lost_points = $data[24];
-                $playerdata2->saved_adv = (int)$data[3] / 100;
+                $playerdata2->player = $player;
+                $playerdata2->ining = $inningsPitched[4];
+                $playerdata2->hit_by_a_pitch = $hitAllowed[16];
+                $playerdata2->by_homeruns = $homerunAllowed[17];
+                $playerdata2->wins = $win[9];
+                $playerdata2->loses = $loss[10];
+                $playerdata2->saves = $save[13];
+                $playerdata2->resp_points = $earnedRun[25];
+                $playerdata2->lost_points = $runAllowed[24];
+                $playerdata2->saved_adv = (int)$era[3] / 100;
                 
                 $playerdata2->save();
     //         }    
     
     //         return redirect('/butterinfo');
-            */
+            
         return view('/scraping');
     }
 }

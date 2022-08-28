@@ -16,8 +16,7 @@ class Player1Table extends Migration
         
         Schema::create('playerdata1', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('lastname'); //苗字
-            $table->string('firstname')->nullable(); //名前
+            $table->string('player'); // 選手名
             $table->integer('times_at_but')->nullable();  //打数
             $table->integer('hit')->nullable(); // 安打
             $table->integer('hit_point')->nullable();  // 打点
