@@ -16,15 +16,15 @@ class Player2Table extends Migration
         Schema::create('playerdata2', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('player'); // 選手名
-            $table->integer('ining')->nullable(); // 投球回	
-            $table->integer('hit_by_a_pitch')->nullable(); // 被安打	
-            $table->integer('by_homeruns')->nullable(); // 被本塁打	
-            $table->integer('wins')->nullable(); // 	勝ち
-            $table->integer('loses')->nullable(); // 敗け	
-            $table->integer('saves')->nullable(); // セーブ	
-            $table->integer('resp_points')->nullable(); // 自責点	
-            $table->integer('lost_points')->nullable(); // 失点	
-            $table->float('saved_adv', 3 , 2)->nullable();; // 防御率	
+            $table->integer('inningsPitched')->nullable(); // 投球回	
+            $table->integer('hitAllowed')->nullable(); // 被安打	
+            $table->integer('homerunAllowed')->nullable(); // 被本塁打	
+            $table->integer('win')->nullable(); // 	勝ち
+            $table->integer('lose')->nullable(); // 敗け	
+            $table->integer('save')->nullable(); // セーブ	
+            $table->integer('earnedRun')->nullable(); // 自責点	
+            $table->integer('runAllowed')->nullable(); // 失点	
+            $table->float('era', 3 , 2)->nullable();; // 防御率	
             
             $table->timestamps();
         });
