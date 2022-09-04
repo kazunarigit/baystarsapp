@@ -45,12 +45,12 @@ class ScrapingController extends Controller
             // その日の試合の選手の成績をクロールする。 投手：投球回など 打者：打席・安打など
             $statslist = $crawler->filter('.bb-statsTable__row')->each(function ($tr) {
                 $tdData = $tr->filter('.bb-statsTable__data')->each(function ($td) {
-                    return $td->text();
+                    return $td->text(); 
                 });
                 return $tdData;
             // return $tr->text();
             });
-            
+            // dd($statslist[1][1]);
             // 選手成績のテーブルから、DeNAがホームの場合、テーブルの上と下どちらからデータを取るか
             $teamname = $crawler->filter('.bb-teamScoreTable__row--home .bb-gameScoreTable__team--npbTeam3')->each(function ($tr) {
                 return $tr->text();
@@ -68,9 +68,9 @@ class ScrapingController extends Controller
                 //     continue;
                 // }
                 // 処理の出力
-                dd($statslist[$i]);
+                // dd($statslist[$i]);
             }
-        }
+        
             // DeNAの選手なら順に見ていき、違えば見ない。
             
             // dd($statslist);
@@ -94,51 +94,51 @@ class ScrapingController extends Controller
             // print $day;
             
         
-
-        // 試合結果から選手ごとのその日までの試合内容を取得（投手の通算成績一覧、打者の通算成績一覧ページのURLとタグ（'.bb-playerTable__row','.bb-playerTable__data'）
-        // テーブルに保存
+    
+            
         
-                    //  playerdataのインスタンスを生成し、データベースのテーブルに保存
-            // foreach($statslist as $player)
+            //  playerdataのインスタンスを生成し、データベースのテーブルに保存
+            for($i = 0; $i < count($statslist) - 1; $i++){
                 $playerdata1 = new Playerdata();
-                $playerdata1->player = $data[1];//選手名
-                $playerdata1->atBat = $data[4];//打数
-                $playerdata1->hit = $data[6];//安打
-                $playerdata1->rbi = $data[7];//打点
-                $playerdata1->average = (int)$data[3] / 100;//打率
-                $playerdata1->homerun = $data[14];//本塁打
-                $playerdata1->stolenBase = $data[12];//盗塁
+                $playerdata1->player = $statslist[1][1];//選手名
+                $playerdata1->atBat = $statslist[1][4];//打数
+                $playerdata1->hit = $statslist[1][6];//安打
+                $playerdata1->rbi = $statslist[1][7];//打点
+                $playerdata1->average = (int)$statslist[1][3] / 100;//打率
+                $playerdata1->homerun = $statslist[1][14];//本塁打
+                $playerdata1->stolenBase = $statslist[1][12];//盗塁
                 // $playerdata1->game = $data[4];//試合
                 // $playerdata1->plateAppearance = $data[3];//打席
     
                 $playerdata1->save();
-    //         }    
+            }   
     
-            return view('/pitcherinfo');
+            // return view('/butterinfo');
         
     
     //     
             
                
     //             // playerdataのインスタンスを生成し、データベースのテーブルに保存
-            // foreach($statslist as $player)
-                $playerdata2 = new Playerdata2();
-                $playerdata2->player = $data[1];//選手名
-                $playerdata2->inningsPitched = $data[3];//投球回
-                $playerdata2->hitAllowed = $data[6];//被安打
-                $playerdata2->homerunAllowed = $data[7];//被本塁打
-                // $playerdata2->wins = $data[9];//勝
-                // $playerdata2->loses = $data[10];
-                // $playerdata2->saves = $data[13];
-                $playerdata2->earnedRun = $data[13];//自責点
-                $playerdata2->runAllowed = $data[12];//失点
-                $playerdata2->era = (int)$data[2] / 100;//防御率
-                
-                $playerdata2->save();
+            
+            $playerdata2 = new Playerdata2();
+            $playerdata2->player = $statslist[1];//選手名
+            $playerdata2->inningsPitched = $statslist[3];//投球回
+            $playerdata2->hitAllowed = $statslist[6];//被安打
+            $playerdata2->homerunAllowed = $statslist[7];//被本塁打
+            // $playerdata2->wins = $data[9];//勝
+            // $playerdata2->loses = $data[10];
+            // $playerdata2->saves = $data[13];
+            $playerdata2->earnedRun = $statslist[13];//自責点
+            $playerdata2->runAllowed = $statslist[12];//失点
+            $playerdata2->era = (int)$statslist[2] / 100;//防御率
+            
+            $playerdata2->save();
     //         }    
     
-             return view('/butterinfo');
-            
+            //  return view('/pitcherinfo');
+            dd($playerdata);
+        }
         return view('/scraping');
     }
 }
