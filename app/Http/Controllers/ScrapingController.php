@@ -96,25 +96,27 @@ class ScrapingController extends Controller
         
     
             
-        
+            dd($statslist[0]);
             //  playerdataのインスタンスを生成し、データベースのテーブルに保存
-            for($i = 0; $i < count($statslist) - 1; $i++){
+            for($i = 1; $i < count($statslist) - 1; $i++){
                 $playerdata1 = new Playerdata();
-                $playerdata1->player = $statslist[1][1];//選手名
-                $playerdata1->atBat = $statslist[1][4];//打数
-                $playerdata1->hit = $statslist[1][6];//安打
-                $playerdata1->rbi = $statslist[1][7];//打点
-                $playerdata1->average = (int)$statslist[1][3] / 100;//打率
-                $playerdata1->homerun = $statslist[1][14];//本塁打
-                $playerdata1->stolenBase = $statslist[1][12];//盗塁
+                // echo $statslist[$i][0] ;
+                $playerdata1->player = $statslist[$i][1];//選手名
+                $playerdata1->atBat = $statslist[$i][4];//打数
+                $playerdata1->hit = $statslist[$i][6];//安打
+                $playerdata1->rbi = $statslist[$i][7];//打点
+                $playerdata1->average = (int)$statslist[$i][3] / 100;//打率
+                $playerdata1->homerun = $statslist[$i][13];//本塁打
+                $playerdata1->stolenBase = $statslist[$i][11];//盗塁
                 // $playerdata1->game = $data[4];//試合
                 // $playerdata1->plateAppearance = $data[3];//打席
     
                 $playerdata1->save();
+            
             }   
-    
+            
             // return view('/butterinfo');
-        
+        }
     
     //     
             
@@ -138,7 +140,7 @@ class ScrapingController extends Controller
     
             //  return view('/pitcherinfo');
             dd($playerdata);
-        }
+        
         return view('/scraping');
     }
 }
